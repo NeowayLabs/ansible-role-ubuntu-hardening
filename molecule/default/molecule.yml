@@ -12,7 +12,7 @@ platforms:
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /sbin/init
+    command: /lib/systemd/systemd
 provisioner:
   name: ansible
   lint:
