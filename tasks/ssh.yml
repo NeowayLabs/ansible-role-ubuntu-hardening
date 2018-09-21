@@ -1,0 +1,42 @@
+---
+# tasks file for openssh service
+- name: ensure install the openssh server
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - openssh-server
+  tags: ssh
+
+- name: ensure copy ssh configurations
+  copy:
+    src: "etc/ssh/{{ item }}"
+    dest: "/etc/ssh/{{ item }}"
+    mode: 0600
+    owner: root
+  register: ssh
+  with_items:
+    - ssh_config
+    - sshd_config
+  tags: ssh
+
+- name: ensure copy ssh banner
+  copy:
+    src: "etc/{{ item }}"
+    dest: "/etc/{{ item }}"
+    mode: 0600
+    owner: root
+  register: banner
+  with_items:
+    - issue.net
+  tags: ssh
+
+- name: ensure start and run on startup the openssh server
+  service:
+    name: ssh
+    state: "{{ (item.changed) | ternary('restarted', 'started') }}"
+    enabled: true
+  with_items:
+    - "{{ ssh.results }}"
+    - "{{ banner.results }}"
+  tags: ssh

@@ -1,2 +1,5 @@
 ---
 # tasks file for ansible-role-ubuntu-hardening
+- name: import ssh.yml tasks
+  import_tasks: ssh.yml
+  tags: ssh

@@ -1,0 +1,3 @@
+[submodule "molecule/cis-benchmark/tests"]
+	path = molecule/cis-benchmark/tests
+	url = https://github.com/NeowayLabs/goss-cis-benchmark.git
