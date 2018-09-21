@@ -6,3 +6,8 @@ service:
   ssh:
     enabled: true
     running: true
+port:
+  tcp:22:
+    listening: true
+    ip:
+      - 0.0.0.0
