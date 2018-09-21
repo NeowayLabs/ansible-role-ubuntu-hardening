@@ -1,7 +1,9 @@
 ansible-role-ubuntu-hardening
 =========
 
-A brief description of the role goes here.
+[![Build Status](https://travis-ci.org/NeowayLabs/ansible-role-ubuntu-hardening.svg?branch=master)](https://travis-ci.org/NeowayLabs/ansible-role-ubuntu-hardening)
+
+Audit and modify an Ubuntu system to satisfy CIS (Center for Internet Security) rules
 
 Requirements
 ------------
@@ -34,7 +36,7 @@ passed in as parameters) is always nice for users too:
 
     - hosts: servers
       roles:
-         - { role: ansible-role-ubuntu-hardening, x: 42 }
+         - { role: ansible-role-ubuntu-hardening }
 
 License
 -------
