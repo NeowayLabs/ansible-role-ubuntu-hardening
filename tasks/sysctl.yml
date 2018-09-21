@@ -17,10 +17,3 @@
     state: "{{ (sysctl.changed) | ternary('restarted', 'started') }}"
     enabled: true
   tags: sysctl
-
-- name: 3.2.8 Ensure TCP SYN Cookies is enabled (Scored)
-  sysctl:
-    name: net.ipv4.tcp_syncookies
-    value: 1
-    state: present
-  tags: sysctl
