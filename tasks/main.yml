@@ -3,3 +3,7 @@
 - name: import ssh.yml tasks
   import_tasks: ssh.yml
   tags: ssh
+
+- name: import sysctl.yml tasks
+  import_tasks: sysctl.yml
+  tags: sysctl

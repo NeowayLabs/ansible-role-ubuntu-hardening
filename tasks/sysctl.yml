@@ -1,0 +1,21 @@
+---
+# tasks file for sysctl configurations
+- name: ensure copy sysctl configurations
+  copy:
+    src: "etc/sysctl.d/{{ item }}"
+    dest: "/etc/sysctl.d/{{ item }}"
+    mode: 0600
+    owner: root
+  register: sysctl
+  with_items:
+    - cis-section_03_01_level1.conf
+    - cis-section_03_02_level1.conf
+    - cis-section_03_03_level1.conf
+  tags: sysctl
+
+- name: ensure apply sysctl configurations
+  systemd:
+    name: systemd-sysctl
+    state: "{{ (sysctl.changed) | ternary('restarted', 'started') }}"
+    enabled: true
+  tags: sysctl

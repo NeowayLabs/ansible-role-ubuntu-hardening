@@ -32,7 +32,7 @@
   tags: ssh
 
 - name: ensure start and run on startup the openssh server
-  service:
+  systemd:
     name: ssh
     state: "{{ (item.changed) | ternary('restarted', 'started') }}"
     enabled: true
