@@ -8,9 +8,7 @@
     owner: root
   register: sysctl
   with_items:
-    - cis-section_03_01_level1.conf
-    - cis-section_03_02_level1.conf
-    - cis-section_03_03_level1.conf
+    - cis-section_03_level1.conf
   tags: sysctl
 
 - name: ensure apply sysctl configurations
