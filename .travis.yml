@@ -7,8 +7,7 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-ce
 install:
-  - pip install molecule docker-py
+  - pip install ansible[azure] molecule docker-py
 script:
-  - sysctl net.ipv4.tcp_syncookies
   - make setup
   - molecule test --all
