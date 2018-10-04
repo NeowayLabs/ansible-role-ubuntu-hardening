@@ -9,6 +9,5 @@ before_install:
 install:
   - pip install molecule docker-py
 script:
-  - sysctl net.ipv4.tcp_syncookies
   - make setup
   - molecule test --all
