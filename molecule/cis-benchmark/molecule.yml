@@ -2,23 +2,36 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: azure
+  location: eastus2
+  resource_group_name: molecule
 lint:
   name: yamllint
 platforms:
-  - name: instance
-    image: ubuntu:16.04
-    image_version: latest
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    command: /lib/systemd/systemd
+  - name: UbuntuServer16.04
+    vm_size: Standard_A0
+    image:
+      offer: UbuntuServer
+      publisher: Canonical
+      sku: '16.04-LTS'
+      version: latest
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
 scenario:
   name: cis-benchmark
+  list_sequence:
+    - lint
+  test_sequence:
+    - lint
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - destroy
 verifier:
   name: goss
   lint:
