@@ -9,14 +9,14 @@ lint:
   name: yamllint
 platforms:
   - name: UbuntuServer16.04
+    image_offer: UbuntuServer
+    image_publisher: Canonical
+    image_sku: 16.04-LTS
+    image_version: latest
     vm_size: Standard_A0
-    image:
-      offer: UbuntuServer
-      publisher: Canonical
-      sku: '16.04-LTS'
-      version: latest
 provisioner:
   name: ansible
+  log: true
   lint:
     name: ansible-lint
 scenario:

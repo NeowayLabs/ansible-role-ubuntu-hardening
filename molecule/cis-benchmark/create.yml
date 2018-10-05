@@ -51,10 +51,10 @@
           - path: "/home/{{ ssh_user }}/.ssh/authorized_keys"
             key_data: "{{ keypair.ssh_public_key }}"
         image:
-          offer: "{{ item.image.offer }}"
-          publisher: "{{ item.image.publisher }}"
-          sku: "{{ item.image.sku }}"
-          version: "{{ item.image.version }}"
+          offer: "{{ item.image_offer }}"
+          publisher: "{{ item.image_publisher }}"
+          sku: "{{ item.image_sku }}"
+          version: "{{ item.image_version }}"
       register: server
       with_items: "{{ molecule_yml.platforms }}"
       async: 7200
