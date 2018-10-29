@@ -1,0 +1,57 @@
+---
+- name: ensure copy banner's
+  copy:
+    src: "etc/{{ item }}"
+    dest: "/etc/{{ item }}"
+    mode: 0644
+    owner: root
+  with_items:
+    - issue
+    - issue.net
+    - motd
+  tags: section01
+
+- name: ensure remove insecure kernel modules
+  modprobe:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - cramfs
+    - freevxfs
+    - jffs2
+    - hfs
+    - hfsplus
+    - udf
+  tags: section01
+
+- name: ensure blacklist insecure kernel modules
+  copy:
+    src: "etc/{{ item }}"
+    dest: "/etc/{{ item }}"
+    mode: 0644
+    owner: root
+  with_items:
+    - modprobe.d/cis-section_01_level1.conf
+  tags: section01
+
+- name: ensure set a hard limit on core dumps
+  copy:
+    src: "etc/{{ item }}"
+    dest: "/etc/{{ item }}"
+    mode: 0644
+    owner: root
+  with_items:
+    - security/limits.d/cis-section_01_level1.conf
+  tags: section01
+
+- name: ensure copy sysctl configurations
+  copy:
+    src: "etc/sysctl.d/{{ item }}"
+    dest: "/etc/sysctl.d/{{ item }}"
+    mode: 0600
+    owner: root
+  register: sysctl
+  with_items:
+    - cis-section_01_level1.conf
+  notify: "restart sysctl"
+  tags: section01

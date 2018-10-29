@@ -5,8 +5,8 @@
 # Port to listen.
 Port 22
 
-# Two-Factor Authentication, public-private key and password.
-AuthenticationMethods publickey,password
+# public-private key
+AuthenticationMethods publickey
 
 # Ensure only approved HostKey are used
 HostKey /etc/ssh/ssh_host_ed25519_key
@@ -58,9 +58,8 @@ ClientAliveCountMax 0
 # Ensure SSH LoginGraceTime is set to one minute or less
 LoginGraceTime 60
 
-# Ensure SSH access is limited
-Match Group *,!admin User !bootstrap
-    ForceCommand nologin
-
 # Ensure SSH warning banner is configured
 Banner /etc/issue.net
+
+# Enable enable PAM authentication
+UsePAM yes

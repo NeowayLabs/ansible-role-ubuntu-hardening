@@ -9,11 +9,5 @@
   register: sysctl
   with_items:
     - cis-section_03_level1.conf
-  tags: sysctl
-
-- name: ensure apply sysctl configurations
-  systemd:
-    name: systemd-sysctl
-    state: "{{ (sysctl.changed) | ternary('restarted', 'started') }}"
-    enabled: true
-  tags: sysctl
+  notify: "restart sysctl"
+  tags: section03
