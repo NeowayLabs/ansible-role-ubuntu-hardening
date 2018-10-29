@@ -1,2 +1,8 @@
 ---
 # handlers file for ansible-role-ubuntu-hardening
+- name: ensure apply sysctl configurations
+  systemd:
+    name: systemd-sysctl
+    state: restarted
+    enabled: true
+  listen: "restart sysctl"

@@ -6,7 +6,7 @@
     state: present
   with_items:
     - openssh-server
-  tags: ssh
+  tags: section05
 
 - name: ensure copy ssh configurations
   copy:
@@ -18,18 +18,7 @@
   with_items:
     - ssh_config
     - sshd_config
-  tags: ssh
-
-- name: ensure copy ssh banner
-  copy:
-    src: "etc/{{ item }}"
-    dest: "/etc/{{ item }}"
-    mode: 0600
-    owner: root
-  register: banner
-  with_items:
-    - issue.net
-  tags: ssh
+  tags: section05
 
 - name: ensure start and run on startup the openssh server
   systemd:
@@ -38,5 +27,4 @@
     enabled: true
   with_items:
     - "{{ ssh.results }}"
-    - "{{ banner.results }}"
-  tags: ssh
+  tags: section05
