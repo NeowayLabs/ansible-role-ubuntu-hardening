@@ -8,6 +8,6 @@
     owner: root
   register: sysctl
   with_items:
-    - cis-section_03_level1.conf
+    - 99-cis-section-03-level1.conf
   notify: "restart sysctl"
   tags: section03

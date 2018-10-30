@@ -52,6 +52,6 @@
     owner: root
   register: sysctl
   with_items:
-    - cis-section_01_level1.conf
+    - 99-cis-section-01-level1.conf
   notify: "restart sysctl"
   tags: section01
