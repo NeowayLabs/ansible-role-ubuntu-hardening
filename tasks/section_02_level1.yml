@@ -1,4 +1,5 @@
 ---
+# tasks file for section02
 - name: ensure install the OpenBSD NTP daemon
   apt:
     pkg: "{{ item }}"
