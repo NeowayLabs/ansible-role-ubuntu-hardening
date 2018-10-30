@@ -6,3 +6,10 @@
     state: restarted
     enabled: true
   listen: "restart sysctl"
+
+- name: ensure restart openntpd
+  systemd:
+    name: openntpd
+    state: restarted
+    enabled: true
+  listen: "restart openntpd"

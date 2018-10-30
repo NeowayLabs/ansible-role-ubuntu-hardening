@@ -4,6 +4,10 @@
   import_tasks: section_01_level1.yml
   tags: section01
 
+- name: import tasks/section_02_level1.yml tasks
+  import_tasks: section_02_level1.yml
+  tags: section02
+
 - name: import tasks/section_03_level1.yml tasks
   import_tasks: section_03_level1.yml
   tags: section03
