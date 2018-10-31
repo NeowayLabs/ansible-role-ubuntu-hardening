@@ -2,10 +2,8 @@
 # tasks file for section05
 - name: ensure install the openssh server
   apt:
-    pkg: "{{ item }}"
+    pkg: openssh-server
     state: present
-  with_items:
-    - openssh-server
   tags: section05
 
 - name: ensure copy ssh configurations
@@ -18,13 +16,5 @@
   with_items:
     - ssh_config
     - sshd_config
-  tags: section05
-
-- name: ensure start and run on startup the openssh server
-  systemd:
-    name: ssh
-    state: "{{ (item.changed) | ternary('restarted', 'started') }}"
-    enabled: true
-  with_items:
-    - "{{ ssh.results }}"
+  notify: "restart ssh"
   tags: section05
