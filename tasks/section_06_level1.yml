@@ -9,6 +9,6 @@
 
 - name: ensure set the home directory permission
   file:
-    path: "{{ ansible_env.HOME }}"
-    mode: 700
+    path: /home/molecule
+    mode: 0700
   tags: section06

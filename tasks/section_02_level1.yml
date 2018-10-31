@@ -7,21 +7,16 @@
   notify: "restart openntpd"
   tags: section02
 
-- name: ensure disable rsync
-  systemd:
-    name: rsync
-    enabled: false
-    masked: true
-  tags: section02
-
 - name: ensure remove rsync
   apt:
     pkg: rsync
     state: absent
+    purge: true
   tags: section02
 
 - name: ensure remove telnet
   apt:
     pkg: telnet
     state: absent
+    purge: true
   tags: section02
