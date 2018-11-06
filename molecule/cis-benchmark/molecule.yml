@@ -8,7 +8,7 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: UbuntuServer16.04
+  - name: UbuntuServer16.04-${TRAVIS_BUILD_ID}
     image_offer: UbuntuServer
     image_publisher: Canonical
     image_sku: 16.04-LTS
@@ -16,7 +16,7 @@ platforms:
     vm_size: Standard_A0
 provisioner:
   name: ansible
-  log: true
+  log: false
   lint:
     name: ansible-lint
 scenario:
