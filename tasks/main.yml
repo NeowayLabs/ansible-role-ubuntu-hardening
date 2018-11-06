@@ -15,3 +15,7 @@
 - name: import tasks/section_05_level1.yml tasks
   import_tasks: section_05_level1.yml
   tags: section05
+
+- name: import tasks/section_06_level1.yml tasks
+  import_tasks: section_06_level1.yml
+  tags: section06

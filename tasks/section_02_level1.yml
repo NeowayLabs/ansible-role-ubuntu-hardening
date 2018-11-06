@@ -1,26 +1,22 @@
 ---
+# tasks file for section02
 - name: ensure install the OpenBSD NTP daemon
   apt:
-    pkg: "{{ item }}"
+    pkg: openntpd
     state: present
-  with_items:
-    - openntpd
   notify: "restart openntpd"
   tags: section02
 
-- name: ensure disable rsync
-  service:
-    name: "{{ item }}"
-    enabled: false
-  with_items:
-    - rsync
+- name: ensure remove rsync
+  apt:
+    pkg: rsync
+    state: absent
+    purge: true
   tags: section02
 
-- name: ensure remove rsync and telnet
+- name: ensure remove telnet
   apt:
-    pkg: "{{ item }}"
+    pkg: telnet
     state: absent
-  with_items:
-    - rsync
-    - telnet
+    purge: true
   tags: section02
