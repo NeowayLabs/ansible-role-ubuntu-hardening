@@ -1,2 +1,4 @@
 ---
 # defaults file for ansible-role-ubuntu-hardening
+ubuntu_hardening_users:
+  - root

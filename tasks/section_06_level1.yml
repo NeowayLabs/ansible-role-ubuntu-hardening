@@ -7,8 +7,16 @@
     mode: 0755
   tags: section06
 
+- name: get all users info
+  getent:
+    database: passwd
+  tags: section06
+
 - name: ensure set the home directory permission
   file:
-    path: /home/molecule
+    path: "{{ item.value.4 }}"
+    state: directory
     mode: 0700
+  when: (item.key in ubuntu_hardening_users)
+  with_dict: '{{ getent_passwd }}'
   tags: section06
