@@ -4,5 +4,9 @@
   become: true
   become_method: sudo
   become_user: root
+  vars:
+    ubuntu_hardening_users:
+      - root
+      - molecule
   roles:
     - role: ansible-role-ubuntu-hardening
