@@ -22,7 +22,6 @@
     - jffs2
     - hfs
     - hfsplus
-    - udf
   tags: section01
 
 - name: ensure blacklist insecure kernel modules
