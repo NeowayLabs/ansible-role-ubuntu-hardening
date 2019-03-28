@@ -7,4 +7,4 @@
     owner: root
   with_items:
     - apt/apt.conf.d/10periodic
-  tags: disable-upgrades
+  tags: disableupgrades

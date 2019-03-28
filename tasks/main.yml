@@ -22,4 +22,4 @@
 
 - name: import tasks/unattended-upgrades.yml tasks
   import_tasks: unattended-upgrades.yml
-  tags: disable-upgrades
+  tags: disableupgrades
