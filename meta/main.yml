@@ -2,7 +2,7 @@
 galaxy_info:
   author: NeowayLabs
   company: Neoway Business Solution
-  description: Ubuntu hardening based on CIS controls benchmark 
+  description: Ubuntu hardening based on CIS controls benchmark
   issue_tracker_url: https://github.com/NeowayLabs/ansible-role-ubuntu-hardening/issues
   license: MIT
   min_ansible_version: 2.6
