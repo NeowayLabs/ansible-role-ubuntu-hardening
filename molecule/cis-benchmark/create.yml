@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: false
+  no_log: true
   vars:
     resource_group_name: "{{ molecule_yml.driver.resource_group_name }}"
     location: "{{ molecule_yml.driver.location }}"
