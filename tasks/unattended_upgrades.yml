@@ -1,0 +1,11 @@
+---
+# tasks file for disable upgrades
+- name: disable unattended upgrades
+  copy:
+    src: "etc/{{ item }}"
+    dest: "/etc/{{ item }}"
+    mode: 0644
+    owner: root
+  with_items:
+    - apt/apt.conf.d/10periodic
+  tags: disableupgrades
