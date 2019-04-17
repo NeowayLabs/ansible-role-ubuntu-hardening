@@ -4,6 +4,7 @@
   apt:
     pkg: openntpd
     state: present
+    update_cache: true
   notify: "restart openntpd"
   tags: section02
 
