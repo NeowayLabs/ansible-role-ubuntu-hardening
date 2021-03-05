@@ -98,15 +98,14 @@ command:
     exit-status: 1
 
   # 1.1.22 Ensure sticky bit is set on all world-writable directories (Automated)
-  df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null:
-    exit-status: 0
+  ? df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null
+  : exit-status: 0
     stdout: []
     timeout: 1000000
 
   # 1.1.23 Disable Automounting (Automated)
   systemctl is-enabled autofs:
     exit-status: 1
-
   # 1.1.24 Disable USB Storage (Automated)
   modprobe -n -v usb-storage:
     exit-status: 0
@@ -121,7 +120,6 @@ command:
   # 1.3.1 Ensure sudo is installed (Automated)
   dpkg -s sudo:
     exit-status: 0
-
   # 1.3.3 Ensure sudo log file exists (Automated)
   grep -Ei '^\s*Defaults\s+logfile=\S+' /etc/sudoers /etc/sudoers.d/*:
     exit-status: 0
@@ -150,8 +148,8 @@ command:
     exit-status: 1
 
   # 1.6.4 Ensure core dumps are restricted (Automated)
-  grep -E '^(\*|\s).*hard.*core.*(\s+#.*)?$' /etc/security/limits.conf /etc/security/limits.d/* 2>/dev/null:
-    exit-status: 0
+  ? grep -E '^(\*|\s).*hard.*core.*(\s+#.*)?$' /etc/security/limits.conf /etc/security/limits.d/* 2>/dev/null
+  : exit-status: 0
     stdout:
       - "* hard core 0"
   sysctl fs.suid_dumpable:
@@ -169,7 +167,6 @@ command:
     exit-status: 0
     stdout:
       - "Status: install ok installed"
-
   # 1.7.1.2 Ensure AppArmor is enabled in the bootloader configuration
   grep "^\s*linux" /boot/grub/grub.cfg | grep -v "apparmor=1":
     exit-status: 1
@@ -179,8 +176,8 @@ command:
     #stdout: []
 
   # 1.7.1.3 Ensure all AppArmor Profiles are in enforce or complain mode
-  test $(expr `apparmor_status --enforced` + `apparmor_status --complaining`) = $(apparmor_status --profiled):
-    exit-status: 0
+  ? test $(expr `apparmor_status --enforced` + `apparmor_status --complaining`) = $(apparmor_status --profiled)
+  : exit-status: 0
 
   # 1.7.1.4 Ensure all AppArmor Profiles are enforcing (Automated): level 2
 
