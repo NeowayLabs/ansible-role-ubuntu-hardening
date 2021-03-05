@@ -125,7 +125,6 @@ command:
     exit-status: 0
     stdout:
       - 'Defaults    logfile="/var/log/sudo.log"'
-
   # 1.5.2 Ensure permissions on bootloader config are configured (Automated)
   stat -c "%a-%u-%g-%U-%G" /boot/grub/grub.cfg:
     exit-status: 0
