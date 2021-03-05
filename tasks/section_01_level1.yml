@@ -106,7 +106,6 @@ command:
   # 1.1.23 Disable Automounting (Automated)
   systemctl is-enabled autofs:
     exit-status: 1
-
   # 1.1.24 Disable USB Storage (Automated)
   modprobe -n -v usb-storage:
     exit-status: 0
@@ -127,7 +126,6 @@ command:
     exit-status: 0
     stdout:
       - 'Defaults    logfile="/var/log/sudo.log"'
-
   # 1.5.2 Ensure permissions on bootloader config are configured (Automated)
   stat -c "%a-%u-%g-%U-%G" /boot/grub/grub.cfg:
     exit-status: 0
@@ -169,7 +167,6 @@ command:
     exit-status: 0
     stdout:
       - "Status: install ok installed"
-
   # 1.7.1.2 Ensure AppArmor is enabled in the bootloader configuration
   grep "^\s*linux" /boot/grub/grub.cfg | grep -v "apparmor=1":
     exit-status: 1
