@@ -23,6 +23,6 @@
 
 - name: ensure daemon reload
   ansible.builtin.systemd:
-    daemon_reload: yes
+    daemon_reload: true
     name: daemon_reload
   listen: "daemon_reload"

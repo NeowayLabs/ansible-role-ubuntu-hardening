@@ -149,5 +149,5 @@
     dest: /etc/sudoers.d/90-cloud-init-users
     marker: "#Ensure sudo log file exists (Automated) - lvl01"
     content: 'Defaults    logfile="/var/log/sudo.log"'
-    backup: no
+    backup: false
   tags: section01
