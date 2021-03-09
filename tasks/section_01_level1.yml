@@ -107,7 +107,7 @@
     content: "tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0"
     backup: no
   notify: "restart sysctl"
-  tags: section01  
+  tags: section01
 
 - name: Ensure nodev option set on /tmp partition 2/2
   mount:
