@@ -71,7 +71,7 @@
   blockinfile:
     dest: /etc/fstab
     marker: "#Ensure nodev option set on /dev/shm partition"
-    content: tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime 0 0    
+    content: tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime 0 0
   notify: "restart sysctl"
   tags: section01
 
@@ -103,7 +103,7 @@
   blockinfile:
     path: /etc/fstab
     marker: "#Ensure nodev option set on /dev/shm partition"
-    content: "tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0"    
+    content: "tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0"
   notify: "restart sysctl"
   tags: section01
 
