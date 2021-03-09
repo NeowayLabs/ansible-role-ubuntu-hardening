@@ -58,24 +58,24 @@
 
 - name: ensure /tmp is configured
   lineinfile:
-    path: /etc/default/grub    
+    path: /etc/default/grub
     regexp: '^GRUB_CMDLINE_LINUX='
     line: GRUB_CMDLINE_LINUX="apparmor=1 security=apparmor"
   tags: section01
-      
+
 - name: ensure restart grub
-  shell: update-grub  
+  shell: update-grub
   tags: section01
 
 - name: ensure /tmp is configured (Automated)
   blockinfile:
     dest: /etc/fstab
     marker: "#Ensure nodev option set on /dev/shm partition"
-    content: tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime 0 0    
-    backup: no  
+    content: tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime 0 0
+    backup: no
   notify: "restart sysctl"
   tags: section01
-  
+
 - name: ensure permissions on bootloader config are configured
   shell: chown root:root /boot/grub/grub.cfg
   tags: section01
@@ -84,7 +84,7 @@
   shell: chmod og-rwx /boot/grub/grub.cfg
   tags: section01
 
-- name: 
+- name:
   shell: cp -v /usr/share/systemd/tmp.mount /etc/systemd/system/
   tags: section01
 
@@ -92,7 +92,7 @@
   lineinfile:
     path: /etc/systemd/system/tmp.mount
     regexp: '^Options='
-    line: Options=mode=1777,strictatime,nosuid,nodev,noexec  
+    line: Options=mode=1777,strictatime,nosuid,nodev,noexec
   tags: section01
 
 - name: ensure sticky bit is set on all world-writable directories
@@ -105,7 +105,7 @@
     path: /etc/fstab
     marker: "#Ensure nodev option set on /dev/shm partition"
     content: "tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0"
-    backup: no  
+    backup: no
   notify: "restart sysctl"
   tags: section01  
 
@@ -149,7 +149,5 @@
     dest: /etc/sudoers.d/90-cloud-init-users
     marker: "#Ensure sudo log file exists (Automated) - lvl01"
     content: 'Defaults    logfile="/var/log/sudo.log"'
-    backup: no    
+    backup: no
   tags: section01
-
-#1.6.4 Ensure core dumps are restricted (Automated)
