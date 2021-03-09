@@ -115,7 +115,7 @@
     state: unmounted
   tags: section01
 
-- name:  Ensure nodev option set on /dev/shm partition 2/2
+- name: Ensure nodev option set on /dev/shm partition 2/2
   mount:
     path: /dev/shm
     state: unmounted
