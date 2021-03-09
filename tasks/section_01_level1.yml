@@ -55,3 +55,101 @@
     - 99-cis-section-01-level1.conf
   notify: "restart sysctl"
   tags: section01
+
+- name: ensure /tmp is configured
+  lineinfile:
+    path: /etc/default/grub    
+    regexp: '^GRUB_CMDLINE_LINUX='
+    line: GRUB_CMDLINE_LINUX="apparmor=1 security=apparmor"
+  tags: section01
+      
+- name: ensure restart grub
+  shell: update-grub  
+  tags: section01
+
+- name: ensure /tmp is configured (Automated)
+  blockinfile:
+    dest: /etc/fstab
+    marker: "#Ensure nodev option set on /dev/shm partition"
+    content: tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime 0 0    
+    backup: no  
+  notify: "restart sysctl"
+  tags: section01
+  
+- name: ensure permissions on bootloader config are configured
+  shell: chown root:root /boot/grub/grub.cfg
+  tags: section01
+
+- name: ensure permissions on bootloader config are configured
+  shell: chmod og-rwx /boot/grub/grub.cfg
+  tags: section01
+
+- name: 
+  shell: cp -v /usr/share/systemd/tmp.mount /etc/systemd/system/
+  tags: section01
+
+- name: ensure SELinux is set to enforcing mode
+  lineinfile:
+    path: /etc/systemd/system/tmp.mount
+    regexp: '^Options='
+    line: Options=mode=1777,strictatime,nosuid,nodev,noexec  
+  tags: section01
+
+- name: ensure sticky bit is set on all world-writable directories
+  shell: df --local -P | awk '{if (NR!=1) print $6}' | xargs -I '{}' find '{}' -xdev -type d \( -perm -0002 -a ! -perm -1000 \) 2>/dev/null | xargs -I '{}' chmod a+t '{}'
+  notify: "daemon_reload"
+  tags: secition01
+
+- name: Ensure nodev option set on /dev/shm partition 1/2
+  blockinfile:
+    path: /etc/fstab
+    marker: "#Ensure nodev option set on /dev/shm partition"
+    content: "tmpfs /dev/shm tmpfs defaults,nodev,nosuid,noexec 0 0"
+    backup: no  
+  notify: "restart sysctl"
+  tags: section01  
+
+- name: Ensure nodev option set on /tmp partition 2/2
+  mount:
+    path: /tmp
+    state: unmounted
+  tags: section01
+
+- name:  Ensure nodev option set on /dev/shm partition 2/2
+  mount:
+    path: /dev/shm
+    state: unmounted
+  tags: section01
+
+- name: Ensure updates, patches, and additional security software are installed
+  apt:
+    upgrade: dist
+  tags: section01
+
+- name: Ensure AppArmor is enabled in the bootloader configuration
+  shell: update-grub
+  tags: section01
+
+- name: Ensure permissions on bootloader config are configured 1/2
+  file:
+    path: /boot/grub/grub.cfg
+    owner: root
+    group: root
+  tags: section01
+
+- name: Ensure permissions on bootloader config are configured 2/2
+  file:
+    path: /boot/grub/grub.cfg
+    state: touch
+    mode: og-rwx
+  tags: section01
+
+- name: Ensure sudo log file exists (Automated)
+  blockinfile:
+    dest: /etc/sudoers.d/90-cloud-init-users
+    marker: "#Ensure sudo log file exists (Automated) - lvl01"
+    content: 'Defaults    logfile="/var/log/sudo.log"'
+    backup: no    
+  tags: section01
+
+#1.6.4 Ensure core dumps are restricted (Automated)
